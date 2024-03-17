@@ -2,6 +2,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
+from pandas.tseries.offsets import DateOffset
 import joblib
 import plotly.express as px
 from Data_Exploration import create_features, add_lags
@@ -16,7 +17,7 @@ def prediction_page(df):
 
     # User input for prediction
     start_date = st.date_input('Select start date for prediction:', value=pd.to_datetime(df.index.max()))
-    end_date = st.date_input('Select end date for prediction:')
+    end_date = st.date_input('Select end date for prediction:',value = pd.to_datetime(df.index.max()) + DateOffset(years=3))
 
     # Create future dates
     future_dates = pd.date_range(start=start_date, end=end_date, freq='1h')
